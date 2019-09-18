@@ -1,0 +1,8 @@
+name: My Theme
+type: theme
+description: 'My Theme'
+
+version: '8.x-1.0'
+core: '8.x'
+project: 'test'
+datestamp: 1528736598

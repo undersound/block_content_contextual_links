@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * @file
+ * Contains block_content_contextual_links.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function block_content_contextual_links_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the block_content_contextual_links module.
+    case 'help.page.block_content_contextual_links':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Provides a wrapper for block content to take care of attributes to render contextual links correctly') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function block_content_contextual_links_theme($existing, $type, $theme, $path) {
+  // Allows us to wrap our entity view render arrays
+  // into custom template and take care of attributes required to render
+  // contextual links correctly.
+  return [
+    'block_content_contextual_links_wrap' => [
+      'variables' => [
+        'content' => [],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ *
+ * @param $suggestions
+ *   An array of suggestions.
+ * @param $variables
+ *   An array of accessible variables.
+ */
+function block_content_contextual_links_theme_suggestions_block_content_contextual_links_wrap_alter(&$suggestions, $variables) {
+  $block_content = $variables['content']['#block_content'];
+  $block_machine_name = $block_content->get('machine_name')->value;
+  $suggestions[] = 'block_content_contextual_links_wrap__' . $block_machine_name;
+}

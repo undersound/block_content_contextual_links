@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the Mytheme theme.
+ */
+
+use Drupal\block_content\Entity\BlockContent;
+
+/**
+ * Implements hook_preprocess_page().
+ *
+ * @param $variables
+ * @param $hook
+ */
+function mytheme_preprocess_page(&$variables, $hook) {
+  // Example block.
+  // Get the block id through config, SQL or some other means
+  $bid = 123;
+  $example_block = BlockContent::load($bid);
+  $example_block_view = \Drupal::entityTypeManager()->getViewBuilder('block_content')->view($example_block);
+  $renderable = [
+    '#theme' => 'block_content_contextual_links_wrap',
+    '#content' => $example_block_view,
+  ];
+  $variables['rendered_example_block'] = \Drupal::service('renderer')->render($renderable);
+}

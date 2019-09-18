@@ -1,0 +1,8 @@
+name: 'Block Content Contextual Links'
+type: module
+description: 'Provides a wrapper for block content to take care of attributes to render contextual links correctly'
+core: 8.x
+package: 'Custom Modules'
+dependencies:
+  - block_content
+  - contextual
